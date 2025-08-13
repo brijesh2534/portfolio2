@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brijesh Tankariya - Full Stack Developer | Real-Time App Specialist</title>
+    <meta name="description" content="Full Stack Developer specializing in real-time applications, Socket.IO, and scalable solutions. Expert in JavaScript, PHP, Laravel, Node.js, and React.">
+    <meta name="keywords" content="Full Stack Developer, Socket.IO, Real-time Applications, JavaScript, PHP, Laravel, Node.js, React">
+    <meta name="author" content="Brijesh Tankariya">
+    
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Brijesh Tankariya - Full Stack Developer">
+    <meta property="og:description" content="Turning code into experiences that connect the world. Specializing in real-time applications and scalable solutions.">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="Brijesh Tankariya Portfolio">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">BT</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scroll-indicator"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <canvas class="particles-canvas" id="particles-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title fade-up">
+                <span class="highlight">Brijesh</span> Tankariya
+            </h1>
+            <h2 class="hero-subtitle fade-up" style="animation-delay: 0.2s;">
+                Full Stack Developer & Real-Time App Specialist
+            </h2>
+            <p class="hero-tagline fade-up" style="animation-delay: 0.4s;">
+                Turning code into experiences that connect the world
+            </p>
+            <div class="hero-buttons fade-up" style="animation-delay: 0.6s;">
+                <a href="#projects" class="btn btn-primary ripple">View My Work</a>
+                <a href="assets/resume.pdf" class="btn btn-outline ripple" download>Download Resume</a>
+            </div>
+            <div class="social-links fade-up" style="animation-delay: 0.8s;">
+                <a href="https://linkedin.com/in/brijesh-tankariya" class="social-link" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/brijesh-tankariya" class="social-link" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                    </svg>
+                </a>
+                <a href="mailto:brijesh.tankariya@example.com" class="social-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator-hero">
+            <span>Scroll down</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Passionate about creating innovative solutions</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <img src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Brijesh Tankariya" loading="lazy">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p class="about-description">
+                        I'm a passionate Full Stack Developer with expertise in building real-time applications that connect users across the globe. My journey in tech is driven by a love for problem-solving and creating seamless digital experiences.
+                    </p>
+                    <p class="about-description">
+                        With a strong foundation in both frontend and backend technologies, I specialize in Socket.IO for real-time communication, scalable Node.js applications, and modern React interfaces that users love to interact with.
+                    </p>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Node.js</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">React</span>
+                                <span class="skill-percentage">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">PHP & Laravel</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Socket.IO</span>
+                                <span class="skill-percentage">92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">HTML/CSS</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fun-facts">
+                        <div class="fun-fact">
+                            <span class="fact-icon">☕</span>
+                            <span class="fact-text">Coffee enthusiast & code optimizer</span>
+                        </div>
+                        <div class="fun-fact">
+                            <span class="fact-icon">🌍</span>
+                            <span class="fact-text">Building solutions that connect globally</span>
+                        </div>
+                        <div class="fun-fact">
+                            <span class="fact-icon">⚡</span>
+                            <span class="fact-text">Real-time everything advocate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Showcasing innovation and technical excellence</p>
+            </div>
+            <div class="projects-grid" id="projects-grid">
+                <div class="project-card" data-project="socket-chat">
+                    <div class="project-image">
+                        <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Socket Chat App" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">Socket.IO</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">React</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Real-Time Chat Application</h3>
+                        <p class="project-description">A scalable chat platform with real-time messaging, file sharing, and user authentication.</p>
+                    </div>
+                </div>
+                <div class="project-card" data-project="ecommerce">
+                    <div class="project-image">
+                        <img src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600" alt="E-commerce Platform" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">E-commerce Platform</h3>
+                        <p class="project-description">Full-featured online store with payment integration and inventory management.</p>
+                    </div>
+                </div>
+                <div class="project-card" data-project="dashboard">
+                    <div class="project-image">
+                        <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Analytics Dashboard" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">D3.js</span>
+                                <span class="tech-tag">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Analytics Dashboard</h3>
+                        <p class="project-description">Interactive dashboard with real-time data visualization and reporting capabilities.</p>
+                    </div>
+                </div>
+                <div class="project-card" data-project="social">
+                    <div class="project-image">
+                        <img src="https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Social Media App" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">React Native</span>
+                                <span class="tech-tag">Express</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Social Media Platform</h3>
+                        <p class="project-description">Mobile-first social platform with real-time notifications and content sharing.</p>
+                    </div>
+                </div>
+                <div class="project-card" data-project="api">
+                    <div class="project-image">
+                        <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=600" alt="API Gateway" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">Redis</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Microservices API Gateway</h3>
+                        <p class="project-description">Scalable API gateway with rate limiting, authentication, and load balancing.</p>
+                    </div>
+                </div>
+                <div class="project-card" data-project="iot">
+                    <div class="project-image">
+                        <img src="https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg?auto=compress&cs=tinysrgb&w=600" alt="IoT Dashboard" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">IoT</span>
+                                <span class="tech-tag">MQTT</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">IoT Monitoring System</h3>
+                        <p class="project-description">Real-time IoT device monitoring with sensor data visualization and alerts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Experience & Achievements</h2>
+                <p class="section-subtitle">Building expertise through diverse challenges</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">💼</div>
+                    <div class="timeline-content">
+                        <h3>Senior Full Stack Developer</h3>
+                        <h4>TechCorp Solutions</h4>
+                        <p class="timeline-date">2022 - Present</p>
+                        <p>Leading development of real-time applications serving 100K+ users. Architected scalable Socket.IO solutions and mentored junior developers.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🚀</div>
+                    <div class="timeline-content">
+                        <h3>Full Stack Developer</h3>
+                        <h4>StartupXYZ</h4>
+                        <p class="timeline-date">2020 - 2022</p>
+                        <p>Built MVP from ground up using Laravel and React. Implemented real-time features that increased user engagement by 300%.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🎓</div>
+                    <div class="timeline-content">
+                        <h3>Web Developer Intern</h3>
+                        <h4>Digital Agency Pro</h4>
+                        <p class="timeline-date">2019 - 2020</p>
+                        <p>Developed responsive websites and learned industry best practices. Contributed to projects for major e-commerce clients.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🏆</div>
+                    <div class="timeline-content">
+                        <h3>Hackathon Winner</h3>
+                        <h4>Code Challenge 2021</h4>
+                        <p class="timeline-date">2021</p>
+                        <p>First place for developing an innovative real-time collaboration tool using Socket.IO and React in just 48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-subtitle">Ready to bring your ideas to life</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:brijesh.tankariya@example.com">brijesh.tankariya@example.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Mumbai, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-details">
+                            <h4>Availability</h4>
+                            <p>Open for opportunities</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <div class="form-error" id="name-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <div class="form-error" id="email-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <div class="form-error" id="message-error"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary ripple">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Brijesh Tankariya. Crafted with passion and code.</p>
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/brijesh-tankariya" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/brijesh-tankariya" class="social-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="mailto:brijesh.tankariya@example.com" class="social-link">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal" id="project-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Project details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/particles.js"></script>
+    <script src="scripts/smooth-scroll.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
