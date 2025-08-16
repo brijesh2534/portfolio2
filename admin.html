@@ -121,7 +121,7 @@
                     </button>
                 </form>
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- Notification Container -->
@@ -130,8 +130,11 @@
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
+        import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, orderBy, query } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        
+        // IMPORTANT: This version uses a local username/password check.
+        // For a secure, production-ready solution, you would need to use Firebase Authentication.
+        
         // IMPORTANT: Replace these with your actual Firebase project configuration
         // You must manually add these from your .env file as a static HTML file cannot read them.
         const firebaseConfig = {
@@ -143,10 +146,10 @@
             appId: "1:192669930233:web:fdd647dc087562735d0828"
         };
         
-        // Initialize Firebase
+        // Initialize Firebase services
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
+        
         // --- UI Element References ---
         const loginPanel = document.getElementById('login-panel');
         const adminPanelContent = document.getElementById('admin-panel-content');
@@ -208,10 +211,13 @@
         // --- Firestore Data Fetching and Real-time Updates ---
         const fetchContacts = () => {
             loadingSpinner.classList.remove('hidden');
-            const contactsCollection = collection(db, "contacts");
+            const contactsCollectionRef = collection(db, "contacts");
             
+            // Create a query to order documents by the 'timestamp' field in descending order
+            const q = query(contactsCollectionRef, orderBy("timestamp", "desc"));
+
             // Set up a real-time listener with onSnapshot
-            unsubscribeFromFirestore = onSnapshot(contactsCollection, (snapshot) => {
+            unsubscribeFromFirestore = onSnapshot(q, (snapshot) => {
                 loadingSpinner.classList.add('hidden');
                 const contacts = [];
                 snapshot.forEach((doc) => {
