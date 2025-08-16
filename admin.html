@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brijesh Portfolio Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Use Tailwind CDN to bypass Vite build conflict for this standalone file -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for Animations and Modals */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loader {
+            border-top-color: #3498db;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+        @-webkit-keyframes spinner {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .notification {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 md:p-12 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto">
+        <!-- Login Section -->
+        <section id="login-panel" class="flex flex-col items-center justify-center min-h-screen">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-sm">
+                <h1 class="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-gray-50">Admin Login</h1>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                        <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                        <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm" required>
+                    </div>
+                    <p id="login-error" class="text-red-500 text-sm hidden">Invalid username or password.</p>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Admin Panel Section -->
+        <section id="admin-panel-content" class="hidden min-h-screen">
+            <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-6 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-4xl font-extrabold text-gray-900 dark:text-gray-50">Admin Panel</h1>
+                <button id="logout-btn" class="mt-4 sm:mt-0 px-6 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-200 font-semibold">
+                    Logout
+                </button>
+            </header>
+
+            <main class="py-8">
+                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-50">Contact Submissions</h2>
+                
+                <!-- Loading state -->
+                <div id="loading" class="flex items-center justify-center p-8 hidden">
+                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 dark:border-gray-700 h-12 w-12"></div>
+                </div>
+
+                <!-- Contact list container -->
+                <div id="contacts-list" class="space-y-4">
+                    <!-- Data will be populated here -->
+                </div>
+                
+                <p id="empty-state" class="text-center text-gray-500 dark:text-gray-400 mt-10 hidden">No contact submissions found.</p>
+
+            </main>
+        </section>
+
+        <!-- Edit Modal -->
+        <div id="edit-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl modal-content w-full max-w-lg relative">
+                <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-50">Edit Contact Submission</h2>
+                <form id="edit-form" class="space-y-4">
+                    <input type="hidden" id="edit-id">
+                    <div>
+                        <label for="edit-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                        <input type="text" id="edit-name" name="name" class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="edit-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input type="email" id="edit-email" name="email" class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="edit-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                        <textarea id="edit-message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-200">
+                        Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="fixed bottom-4 right-4 z-[99]"></div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        // IMPORTANT: Replace these with your actual Firebase project configuration
+        // You must manually add these from your .env file as a static HTML file cannot read them.
+        const firebaseConfig = {
+            apiKey: "AIzaSyDscpgG5C9DcRvQsSEFQFvMpLUNSJVVRFI",
+            authDomain: "brijeshportfolio-266e0.firebaseapp.com",
+            projectId: "brijeshportfolio-266e0",
+            storageBucket: "brijeshportfolio-266e0.firebasestorage.app",
+            messagingSenderId: "192669930233",
+            appId: "1:192669930233:web:fdd647dc087562735d0828"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- UI Element References ---
+        const loginPanel = document.getElementById('login-panel');
+        const adminPanelContent = document.getElementById('admin-panel-content');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const logoutBtn = document.getElementById('logout-btn');
+        const contactsList = document.getElementById('contacts-list');
+        const emptyState = document.getElementById('empty-state');
+        const loadingSpinner = document.getElementById('loading');
+        
+        // --- Modal Element References ---
+        const editModal = document.getElementById('edit-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const editForm = document.getElementById('edit-form');
+        const editNameInput = document.getElementById('edit-name');
+        const editEmailInput = document.getElementById('edit-email');
+        const editMessageInput = document.getElementById('edit-message');
+        const editIdInput = document.getElementById('edit-id');
+        
+        // --- Hardcoded Admin Credentials ---
+        const ADMIN_USERNAME = "brijesh2534";
+        const ADMIN_PASSWORD = "25342534";
+
+        let unsubscribeFromFirestore = null;
+
+        // --- Authentication Logic ---
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = loginForm.username.value;
+            const password = loginForm.password.value;
+            
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                // Successful login
+                loginPanel.classList.add('hidden');
+                adminPanelContent.classList.remove('hidden');
+                fetchContacts();
+            } else {
+                // Failed login
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            // Unsubscribe from Firestore to stop real-time updates
+            if (unsubscribeFromFirestore) {
+                unsubscribeFromFirestore();
+            }
+            // Clear the contacts list
+            contactsList.innerHTML = '';
+            // Show login and hide admin panel
+            loginPanel.classList.remove('hidden');
+            adminPanelContent.classList.add('hidden');
+            // Reset form and hide error message
+            loginForm.reset();
+            loginError.classList.add('hidden');
+            showNotification('Logged out successfully.', 'info');
+        });
+
+        // --- Firestore Data Fetching and Real-time Updates ---
+        const fetchContacts = () => {
+            loadingSpinner.classList.remove('hidden');
+            const contactsCollection = collection(db, "contacts");
+            
+            // Set up a real-time listener with onSnapshot
+            unsubscribeFromFirestore = onSnapshot(contactsCollection, (snapshot) => {
+                loadingSpinner.classList.add('hidden');
+                const contacts = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    contacts.push({ id: doc.id, ...data });
+                });
+                renderContacts(contacts);
+            }, (error) => {
+                console.error("Error fetching documents:", error);
+                loadingSpinner.classList.add('hidden');
+                showNotification('Error fetching data. Check console for details.', 'error');
+            });
+        };
+
+        // --- Data Rendering ---
+        const renderContacts = (contacts) => {
+            contactsList.innerHTML = '';
+            if (contacts.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+            
+            contacts.forEach(contact => {
+                const contactElement = document.createElement('div');
+                contactElement.classList.add('bg-white', 'dark:bg-gray-800', 'p-6', 'rounded-xl', 'shadow-md', 'flex', 'flex-col', 'lg:flex-row', 'justify-between', 'items-start', 'lg:items-center', 'space-y-4', 'lg:space-y-0');
+                
+                const timestamp = contact.timestamp ? new Date(contact.timestamp.seconds * 1000).toLocaleString() : 'N/A';
+
+                contactElement.innerHTML = `
+                    <div class="flex-grow space-y-2">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Received on: ${timestamp}</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-50">${contact.name}</h3>
+                        <p class="text-gray-700 dark:text-gray-300 truncate w-full lg:w-96" title="${contact.message}">
+                            ${contact.message}
+                        </p>
+                        <p class="text-sm text-blue-500 dark:text-blue-400">${contact.email}</p>
+                    </div>
+                    <div class="flex space-x-2 mt-4 lg:mt-0">
+                        <button class="edit-btn px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-200 text-sm font-semibold" data-id="${contact.id}">Edit</button>
+                        <button class="delete-btn px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-200 text-sm font-semibold" data-id="${contact.id}">Delete</button>
+                    </div>
+                `;
+                contactsList.appendChild(contactElement);
+            });
+        };
+
+        // --- Delete Logic ---
+        contactsList.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const contactId = e.target.getAttribute('data-id');
+                // Use a custom modal instead of alert/confirm
+                if (window.confirm('Are you sure you want to delete this submission?')) {
+                    try {
+                        const contactRef = doc(db, "contacts", contactId);
+                        await deleteDoc(contactRef);
+                        showNotification('Submission deleted successfully!', 'success');
+                    } catch (error) {
+                        console.error("Error deleting document: ", error);
+                        showNotification('Error deleting submission. Check console for details.', 'error');
+                    }
+                }
+            }
+        });
+
+        // --- Edit Logic ---
+        contactsList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit-btn')) {
+                const contactId = e.target.getAttribute('data-id');
+                const contactElement = e.target.closest('div.flex.flex-col.lg\\:flex-row');
+                
+                // Extract data from the rendered HTML
+                const name = contactElement.querySelector('h3').textContent;
+                const email = contactElement.querySelector('p.text-sm.text-blue-500').textContent;
+                const message = contactElement.querySelector('p.text-gray-700').title;
+                
+                editIdInput.value = contactId;
+                editNameInput.value = name;
+                editEmailInput.value = email;
+                editMessageInput.value = message;
+                
+                editModal.classList.remove('hidden');
+            }
+        });
+
+        editForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const contactId = editIdInput.value;
+            const updatedData = {
+                name: editNameInput.value,
+                email: editEmailInput.value,
+                message: editMessageInput.value
+            };
+            
+            try {
+                const contactRef = doc(db, "contacts", contactId);
+                await updateDoc(contactRef, updatedData);
+                showNotification('Submission updated successfully!', 'success');
+                editModal.classList.add('hidden');
+            } catch (error) {
+                console.error("Error updating document: ", error);
+                showNotification('Error updating submission. Check console for details.', 'error');
+            }
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            editModal.classList.add('hidden');
+        });
+        
+        // Close modal on outside click
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                editModal.classList.add('hidden');
+            }
+        });
+
+        // --- Utility Function for Notifications ---
+        function showNotification(message, type) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.classList.add('notification', 'px-6', 'py-3', 'rounded-xl', 'shadow-lg', 'text-white', 'font-semibold', 'max-w-xs', 'bg-opacity-90', 'backdrop-blur-md');
+
+            if (type === 'success') {
+                notification.classList.add('bg-green-600');
+            } else if (type === 'error') {
+                notification.classList.add('bg-red-600');
+            } else {
+                notification.classList.add('bg-blue-600');
+            }
+            
+            notification.textContent = message;
+            container.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 50);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
